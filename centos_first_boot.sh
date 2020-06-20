@@ -13,7 +13,7 @@ if [[ "$major" == "7" ]]; then
   yum update -y
   yum install epel-release -y
   yum update -y
-  yum install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf -y
+  yum install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 -y
   yum update -y
   sed -i 's/=enforcing/=disabled/g' /etc/selinux/config
   systemctl disable firewalld
@@ -22,7 +22,7 @@ elif [[ "$major" == "8" ]]; then
   dnf update -y
   dnf install epel-release -y
   dnf update -y
-  dnf install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf -y
+  dnf install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 -y
   dnf update -y
   sed -i 's/=enforcing/=disabled/g' /etc/selinux/config
   systemctl disable firewalld
