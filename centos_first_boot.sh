@@ -22,7 +22,7 @@ elif [[ "$major" == "8" ]]; then
   dnf update -y
   dnf install epel-release -y
   dnf update -y
-  dnf install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel python2-devel python-cffi python-setuptools libffi-devel cyrus-sasl-plain mailx strace -y
+  dnf install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel libtirpc-devel python2-devel python-cffi python-setuptools libffi-devel cyrus-sasl-plain mailx strace -y
   dnf update -y
   sed -i 's/=enforcing/=disabled/g' /etc/selinux/config
   systemctl disable firewalld
