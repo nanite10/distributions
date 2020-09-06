@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo swupd bundle-add os-core-search os-core-dev linux-dev vim rsync wget tmux net-tools
+sudo swupd bundle-add os-core-search os-core-dev linux-dev vim rsync wget tmux net-tools network-basic
 wget https://github.com/openzfs/zfs/releases/download/zfs-2.0.0-rc1/zfs-2.0.0-rc1.tar.gz
 tar -xvzf zfs-2.0.0-rc1.tar.gz
 cd zfs-2.0.0
