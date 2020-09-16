@@ -7,6 +7,17 @@ sh autogen.sh
 ./configure
 make -s
 sudo make install
+modprobe zfs
+
+systemctl enable zfs-import-cache.service
+systemctl enable zfs-import-scan.service
+systemctl enable zfs-mount.service
+systemctl enable zfs-share.service
+systemctl enable zfs-volume-wait.service
+systemctl enable zfs-zed.service
+systemctl enable zfs-import.target
+systemctl enable zfs-volumes.target
+systemctl enable zfs.target
 
 sudo mkdir -p /etc/kernel/cmdline.d
 echo "module.sig_unenforce" | sudo tee /etc/kernel/cmdline.d/allow-unsigned-modules.conf
