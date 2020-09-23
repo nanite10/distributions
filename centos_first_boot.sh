@@ -28,3 +28,18 @@ elif [[ "$major" == "8" ]]; then
   systemctl disable firewalld
   service firewalld stop
 fi
+
+wget https://github.com/zfsonlinux/zfs/releases/download/zfs-0.8.4/zfs-0.8.4.tar.gz
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+tar -xvzf zfs-0.8.4.tar.gz
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+cd zfs-0.8.4
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+sh autogen.sh
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+./configure
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+make
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+make rpm
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
