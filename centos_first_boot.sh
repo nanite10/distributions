@@ -67,6 +67,8 @@ modprobe zfs
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 systemctl enable zfs-import-scan.service
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+echo "zfs" > /etc/modules-load.d/zfs.conf
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 grub_file=`find /boot -type f -name grub.cfg`
 if [ -z "$grub_file" ]; then echo "ERROR: Failed to find grub.cfg in /boot"; exit 1; fi
 depmod -a
