@@ -9,26 +9,39 @@ echo "Major Relase: $major"
 echo "Minor Relase: $minor"
 echo "Asynchronous Relase: $asynchronous"
 
+# Update system and install common packages
 if [[ "$major" == "7" ]]; then
   yum update -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   yum install epel-release -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   yum update -y
-  yum install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel python2-devel python-cffi python-setuptools libffi-devel cyrus-sasl-plain mailx strace mdadm lvm2 -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+  yum install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel python2-devel python-cffi python-setuptools libffi-devel cyrus-sasl-plain mailx strace mdadm lvm2 sysstat lm_sensors-libs -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   yum update -y
-  sed -i 's/=enforcing/=disabled/g' /etc/selinux/config
-  systemctl disable firewalld
-  service firewalld stop
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 elif [[ "$major" == "8" ]]; then
   dnf update -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   dnf install epel-release -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   dnf update -y
-  dnf install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel libtirpc-devel python2-devel libffi-devel cyrus-sasl-plain mailx strace mdadm lvm2 -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+  dnf install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel libtirpc-devel python2-devel libffi-devel cyrus-sasl-plain mailx strace mdadm lvm2 sysstat lm_sensors-libs -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   dnf update -y
-  sed -i 's/=enforcing/=disabled/g' /etc/selinux/config
-  systemctl disable firewalld
-  service firewalld stop
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 fi
 
+sed -i 's/=enforcing/=disabled/g' /etc/selinux/config
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+systemctl disable firewalld
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+service firewalld stop
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+
+# Install ZFS
 wget https://github.com/zfsonlinux/zfs/releases/download/zfs-0.8.4/zfs-0.8.4.tar.gz
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 tar -xvzf zfs-0.8.4.tar.gz
@@ -42,4 +55,23 @@ if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with
 make
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 make rpm
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+if [[ "$major" == "7" ]]; then
+  yum install zfs-dkms-0.8.4-1.el7.noarch.rpm python2-pyzfs-0.8.4-1.el7.noarch.rpm zfs-dracut-0.8.4-1.el7.noarch.rpm libnvpair1-0.8.4-1.el7.x86_64.rpm libuutil1-0.8.4-1.el7.x86_64.rpm libzfs2-0.8.4-1.el7.x86_64.rpm libzfs2-devel-0.8.4-1.el7.x86_64.rpm libzpool2-0.8.4-1.el7.x86_64.rpm zfs-0.8.4-1.el7.x86_64.rpm zfs-debuginfo-0.8.4-1.el7.x86_64.rpm -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+elif [[ "$major" == "8" ]]; then
+  dnf install zfs-dkms-0.8.4-1.el7.noarch.rpm python2-pyzfs-0.8.4-1.el7.noarch.rpm zfs-dracut-0.8.4-1.el7.noarch.rpm libnvpair1-0.8.4-1.el7.x86_64.rpm libuutil1-0.8.4-1.el7.x86_64.rpm libzfs2-0.8.4-1.el7.x86_64.rpm libzfs2-devel-0.8.4-1.el7.x86_64.rpm libzpool2-0.8.4-1.el7.x86_64.rpm zfs-0.8.4-1.el7.x86_64.rpm zfs-debuginfo-0.8.4-1.el7.x86_64.rpm -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+fi
+modprobe zfs
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+systemctl enable zfs-import-scan.service
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+grub_file=`find /boot -type f -name grub.cfg`
+if [ -z "$grub_file" ]; then echo "ERROR: Failed to find grub.cfg in /boot"; exit 1; fi
+depmod -a
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+dracut -f
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+grub2-mkconfig -o "$grub_file"
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
