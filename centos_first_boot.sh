@@ -100,3 +100,24 @@ echo "fs.inotify.max_user_watches = 16777216" >> /etc/sysctl.conf
 echo "fs.inotify.max_queued_events = 1000000" >> /etc/sysctl.conf
 sysctl fs.inotify.max_user_watches=16777216
 sysctl fs.inotify.max_queued_events=1000000
+
+# Install updated rsync
+if [[ "$major" == "7" ]]; then
+  yum install gcc gawk autoconf automake acl libacl-devel attr libattr-devel openssl-devel lz4 lz4-devel -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+elif [[ "$major" == "8" ]]; then
+  dnf install gcc gawk autoconf automake acl libacl-devel attr libattr-devel openssl-devel lz4 lz4-devel -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+fi
+wget https://download.samba.org/pub/rsync/src/rsync-3.2.3.tar.gz
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+tar -xvzf rsync-3.2.3.tar.gz
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+cd rsync-3.2.3
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+./configure --disable-xxhash --disable-zstd --enable-acl-support --disable-md2man
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+make
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+cp rsync /usr/local/sbin/
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
