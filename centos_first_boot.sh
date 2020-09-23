@@ -77,3 +77,22 @@ dracut -f
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 grub2-mkconfig -o "$grub_file"
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+
+# Install lsyncd
+if [[ "$major" == "7" ]]; then
+  yum install cmake lua lua-devel gcc-c++ -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+elif [[ "$major" == "8" ]]; then
+  dnf install cmake lua lua-devel gcc-c++ -y
+  if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+fi
+git clone https://github.com/axkibe/lsyncd.git
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+cd lsyncd
+mkdir build
+cd build
+cmake ..
+make
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+cp lsyncd /usr/local/sbin/
+if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
