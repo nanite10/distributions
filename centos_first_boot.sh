@@ -96,3 +96,7 @@ make
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 cp lsyncd /usr/local/sbin/
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
+echo "fs.inotify.max_user_watches = 16777216" >> /etc/sysctl.conf
+echo "fs.inotify.max_queued_events = 1000000" >> /etc/sysctl.conf
+sysctl fs.inotify.max_user_watches=16777216
+sysctl fs.inotify.max_queued_events=1000000
