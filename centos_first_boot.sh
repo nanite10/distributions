@@ -42,11 +42,11 @@ service firewalld stop
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 
 # Install ZFS
-wget https://github.com/zfsonlinux/zfs/releases/download/zfs-0.8.4/zfs-0.8.4.tar.gz
+wget https://github.com/zfsonlinux/zfs/releases/download/zfs-0.8.5/zfs-0.8.5.tar.gz
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
-tar -xvzf zfs-0.8.4.tar.gz
+tar -xvzf zfs-0.8.5.tar.gz
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
-cd zfs-0.8.4
+cd zfs-0.8.5
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 sh autogen.sh
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
@@ -57,10 +57,10 @@ if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with
 make rpm
 if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 if [[ "$major" == "7" ]]; then
-  yum install zfs-dkms-0.8.4-1.el7.noarch.rpm python2-pyzfs-0.8.4-1.el7.noarch.rpm zfs-dracut-0.8.4-1.el7.noarch.rpm libnvpair1-0.8.4-1.el7.x86_64.rpm libuutil1-0.8.4-1.el7.x86_64.rpm libzfs2-0.8.4-1.el7.x86_64.rpm libzfs2-devel-0.8.4-1.el7.x86_64.rpm libzpool2-0.8.4-1.el7.x86_64.rpm zfs-0.8.4-1.el7.x86_64.rpm zfs-debuginfo-0.8.4-1.el7.x86_64.rpm -y
+  yum install zfs-dkms-0.8.5-1.el7.src.rpm zfs-dkms-0.8.5-1.el7.noarch.rpm zfs-0.8.5-1.el7.src.rpm python2-pyzfs-0.8.5-1.el7.noarch.rpm zfs-dracut-0.8.5-1.el7.noarch.rpm libnvpair1-0.8.5-1.el7.x86_64.rpm libuutil1-0.8.5-1.el7.x86_64.rpm libzfs2-0.8.5-1.el7.x86_64.rpm libzfs2-devel-0.8.5-1.el7.x86_64.rpm libzpool2-0.8.5-1.el7.x86_64.rpm zfs-0.8.5-1.el7.x86_64.rpm zfs-debuginfo-0.8.5-1.el7.x86_64.rpm -y
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 elif [[ "$major" == "8" ]]; then
-  dnf install zfs-dkms-0.8.4-1.el7.noarch.rpm python2-pyzfs-0.8.4-1.el7.noarch.rpm zfs-dracut-0.8.4-1.el7.noarch.rpm libnvpair1-0.8.4-1.el7.x86_64.rpm libuutil1-0.8.4-1.el7.x86_64.rpm libzfs2-0.8.4-1.el7.x86_64.rpm libzfs2-devel-0.8.4-1.el7.x86_64.rpm libzpool2-0.8.4-1.el7.x86_64.rpm zfs-0.8.4-1.el7.x86_64.rpm zfs-debuginfo-0.8.4-1.el7.x86_64.rpm -y
+  dnf install zfs-dkms-0.8.5-1.el7.src.rpm zfs-dkms-0.8.5-1.el7.noarch.rpm zfs-0.8.5-1.el7.src.rpm python2-pyzfs-0.8.5-1.el7.noarch.rpm zfs-dracut-0.8.5-1.el7.noarch.rpm libnvpair1-0.8.5-1.el7.x86_64.rpm libuutil1-0.8.5-1.el7.x86_64.rpm libzfs2-0.8.5-1.el7.x86_64.rpm libzfs2-devel-0.8.5-1.el7.x86_64.rpm libzpool2-0.8.5-1.el7.x86_64.rpm zfs-0.8.5-1.el7.x86_64.rpm zfs-debuginfo-0.8.5-1.el7.x86_64.rpm -y
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
 fi
 modprobe zfs
