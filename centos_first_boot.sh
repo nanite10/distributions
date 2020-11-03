@@ -17,7 +17,7 @@ if [[ "$major" == "7" ]]; then
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   yum update -y
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
-  yum install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel python2-devel python-cffi python-setuptools libffi-devel cyrus-sasl-plain mailx strace mdadm lvm2 sysstat lm_sensors-libs net-tools sshpass -y
+  yum install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel python2-devel python-cffi python-setuptools libffi-devel cyrus-sasl-plain mailx strace mdadm lvm2 sysstat lm_sensors-libs net-tools sshpass samba -y
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   yum update -y
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
@@ -28,7 +28,7 @@ elif [[ "$major" == "8" ]]; then
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   dnf update -y
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
-  dnf install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel libtirpc-devel python2-devel libffi-devel cyrus-sasl-plain mailx strace mdadm lvm2 sysstat lm_sensors-libs net-tools sshpass -y
+  dnf install vim rsync tmux wget iptraf-ng iperf3 cifs-utils git glusterfs-client kernel-headers-$(uname -r) kernel-devel-$(uname -r) ncurses-devel flex bison openssl openssl-devel dkms elfutils-libelf-devel autoconf bzip2 automake libtool libuuid-devel libblkid-devel rpm-build libudev-devel libattr-devel libaio-devel libtirpc-devel python2-devel libffi-devel cyrus-sasl-plain mailx strace mdadm lvm2 sysstat lm_sensors-libs net-tools sshpass samba -y
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
   dnf update -y
   if [ $? -ne 0 ]; then echo "ERROR: Failure on last command; run was ["!:0"] with arguments ["!:*"]"; exit 1; fi
