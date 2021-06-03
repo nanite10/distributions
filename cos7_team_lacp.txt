@@ -1,0 +1,37 @@
+/etc/sysconfig/network-scripts/ifcfg-team0
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=none
+IPADDR=192.168.0.2
+PREFIX=24
+GATEWAY=192.168.0.1
+DNS1=192.168.0.1
+DOMAIN=local
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=no
+NAME="Team connection 1"
+UUID=122075b3-d7e9-4ccf-8a55-e3ac59f2dd69
+DEVICE=team0
+ONBOOT=yes
+DEVICETYPE=Team
+TEAM_CONFIG='{ "runner": { "name": "lacp", "active": true, "fast_rate": true, "tx_hash": ["eth", "ipv4", "ipv6"] }, "link_watch": {"name": "ethtool"}, "ports": {"enp0s3: {}, "enp0s8": {}} }'
+
+/etc/sysconfig/network-scripts/ifcfg-enp0s3
+NAME="Ethernet connection 1"
+UUID=b131e976-c8ab-41c9-96a9-56474da4219e
+DEVICE=enp0s3
+ONBOOT=yes
+TEAM_MASTER=team0
+DEVICETYPE=TeamPort
+TEAM_MASTER_UUID=122075b3-d7e9-4ccf-8a55-e3ac59f2dd69
+
+/etc/sysconfig/network-scripts/ifcfg-enp0s8
+[root@cos7s01 ~]# cat ifcfg-enp0s8
+NAME="Ethernet connection 2"
+UUID=364b226d-008f-4375-938c-7538862b88ad
+DEVICE=enp0s8
+ONBOOT=yes
+TEAM_MASTER=team0
+DEVICETYPE=TeamPort
+TEAM_MASTER_UUID=122075b3-d7e9-4ccf-8a55-e3ac59f2dd69
